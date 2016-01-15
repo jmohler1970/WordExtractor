@@ -16,6 +16,8 @@
 		
 	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 	
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha256-7s5uDGW3AHqw6xtJmNNtr+OBRJUlgkNJEo78P4b0yRw= sha512-nNo+yCHEyn0smMxSswnf/OnX6/KwJuZTlNZBjauKhTK0c+zT+q5JOCx0UFhXQ6rJR9jg6Es8gPuD2uZcYDLqSw==" crossorigin="anonymous">
+	
 	<link rel="start"  	href="index.cfm" />
 	<link rel="made" 	href="mailto:james@webworldinc.com" />
 </head>	
@@ -25,18 +27,21 @@
 
 
 
+<div class="jumbotron">
+	<h1>Word Extractor</h1>
+	<p>Get HTML out of a Word Document</p>
+</div>
 
-<h1>Uploaded New Files</h1>
+<div class="container">
 
 
+<form action="index.cfm?action=extract" method="post" enctype="multipart/form-data" class="form-inline">
 
-<form action="index.cfm?action=extract" method="post" enctype="multipart/form-data">
+	<div class="form-group">
+		<input type="file" name="wordDocx" />
+	</div>
 
-
-<input type="file" name="wordDocx" />
-
-<br />
-<button type="submit" style="height : 50px; width : 100px; font-size : 20pt;" >Upload</button>
+	<button type="submit" class="btn btn-primary btn-large">Upload</button>
 </form>  
 
 
@@ -75,6 +80,7 @@
 
 
 
+<div class="container">
 
 
 </body>
