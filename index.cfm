@@ -1,18 +1,5 @@
-<!---
-   Copyright 2011 James Mohler
 
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
 
-       http://www.apache.org/licenses/LICENSE-2.0
-
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
---->   
 
 <cfparam name="url.action" default="">
 
@@ -22,11 +9,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
-	<title>Word ExtractorFoundation</title>
+	<title>Word Extractor</title>
 
-	<style type="text/css">
-		@import url(main.css);
-	</style>
+
 
 		
 	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
@@ -41,7 +26,7 @@
 
 
 
-<h4>Uploaded New Files</h4>
+<h1>Uploaded New Files</h1>
 
 
 
@@ -59,14 +44,21 @@
 
 	<h4>Results</h4>
 
-	<cfset objExtract = createobject("component", "wordextractor")>
+	<cfscript>
+	objExtract = new wordextractor();
 	
-	<cfset strPath = GetDirectoryFromPath(GetBaseTemplatePath() ) & "temp/">
+	strPath = GetDirectoryFromPath(GetBaseTemplatePath() ) & "temp/";
+	if (!DirectoryExists(strPath)) {
+		DirectoryCreate(strPath);
+		}
 
-	<cffile action="upload" fileField="wordDocx" destination="#strPath#" nameConflict="Overwrite">
+	fileInfo = FileUpload(strPath, "wordDocx", "application/*", "overwrite");
 
+	writedump(fileInfo);
 
-	<cfset result = objExtract.extractDocx("#strPath##cffile.serverfile#")>
+	result = objExtract.extractDocx("#strPath##fileinfo.serverfile#");
+	</cfscript>
+	
 	
 	<cfoutput>
 		<p>Raw length: #len(objExtract.xmlString)#</p>
@@ -74,7 +66,7 @@
 		<hr />
 		#result#
 		<hr />
-		<pre>#htmleditformat(result)#</pre>
+		<pre>#encodeForXML(result)#</pre>
 	</cfoutput>
 
 

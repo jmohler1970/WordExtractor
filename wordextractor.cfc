@@ -25,7 +25,7 @@ variables.listcounter = 1; // used to set order list numbers
 variables.CRLF = Chr(13) & Chr(10);
 
 
-package string function ReadNode (required xml Node) {
+package string function ReadNode (required xml Node) output="false" {
 	
 	var result = "";
 	var wpPr = "";
@@ -176,7 +176,7 @@ package string function ReadNode (required xml Node) {
 </cfscript>
 
 
-<cffunction name="extractDocx" returnType="string">
+<cffunction name="extractDocx" returnType="string" output="false">
 	<cfargument name="pathToDocx" required="true" type="string">
 
 	<cfset var xmlPara = "">
