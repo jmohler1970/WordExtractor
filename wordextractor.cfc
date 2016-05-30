@@ -1,4 +1,4 @@
-<!---
+/*
    Copyright 2011 James Mohler
 
    Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,12 +12,12 @@
    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
    See the License for the specific language governing permissions and
    limitations under the License.
----> 
+*/ 
 
 
-<cfcomponent> 
-
-<cfscript>
+component output="false"	{	
+	
+	
 this.xmlPara = ""; // parsed into XML nodes
 this.xmlString = ""; // raw text
 this.proofErr = "spellEnd";
@@ -173,23 +173,20 @@ package string function ReadNode (required xml Node) output="false" {
 		
 	return result;
 	}	// End function
-</cfscript>
-
-
-<cffunction name="extractDocx" returnType="string" output="false">
-	<cfargument name="pathToDocx" required="true" type="string">
-
-	<cfset var xmlPara = "">
-
-	<cfzip action="read" file="#arguments.pathToDocx#" entrypath="word\document.xml" variable="this.xmlString">
-
-	<cfset this.xmlPara = xmlparse(this.xmlString).document.body>
-
-	<cfreturn this.ReadNode(this.xmlPara)>
-</cffunction>
-
-
-</cfcomponent>
+	
+	
+	
+string function extractDocx(required string pathToDocX) output="false"	{
+	
+	cfzip(action="read", file=arguments.pathToDocx, entrypath="word\document.xml", variable="this.xmlString");
+	
+	this.xmlPara = xmlparse(this.xmlString).document.body;
+	
+	return this.ReadNode(this.xmlPara);
+	}
+	
+	
+} // end component	
 
 
 

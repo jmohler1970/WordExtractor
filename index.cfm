@@ -26,13 +26,13 @@
 <body>
 
 
+<div class="container">
 
 <div class="jumbotron">
 	<h1>Word Extractor</h1>
 	<p>Get HTML out of a Word Document</p>
 </div>
 
-<div class="container">
 
 
 <form action="index.cfm?action=extract" method="post" enctype="multipart/form-data" class="form-inline">
@@ -66,12 +66,12 @@
 	
 	
 	<cfoutput>
-		<p>Raw length: #len(objExtract.xmlString)#</p>
-		<p>Extracted length: #len(result)#</p>
+		<p>Raw length: #objExtract.xmlString.len()#</p>
+		<p>Extracted length: #result.len()#</p>
 		<hr />
 		#result#
 		<hr />
-		<pre>#encodeForXML(result)#</pre>
+		<pre>#result.encodeForXML()#</pre>
 	</cfoutput>
 
 
@@ -79,10 +79,10 @@
 
 
 
-
-<div class="container">
-
+</div>
 
 </body>
 </html>
+
+
 
