@@ -33,7 +33,7 @@ variables.listcounter = 1; // used to set order list numbers
 variables.CRLF = Chr(13) & Chr(10);
 
 
-private string function ReadNode (required xml Node) output="false" {
+private string function ReadNode (required xml Node) {
 
 	var result = "";
 	var wpPr = "";
@@ -124,13 +124,12 @@ private string function ReadNode (required xml Node) output="false" {
 					result &= '<p>#ReadNode(Element)#</p>#variables.crlf#';
 				}
 
-
 			break; // end of w:p
 
 
 		case "w:r"	: // This handles bolds and italics
 				wrPr = "";
-				if (Element.XMLChildren[1].XMLName == "w:rPr")	{
+				if (Element.XMLChildren[1].XMLName == "w:rPr" && isArray(Element.XMLChildren[1].XMLChildren) && !arrayIsEmpty(Element.XMLChildren[1].XMLChildren))	{
 					wrPr = Element.XMLChildren[1].XMLChildren[1].XMLName;
 					}
 	
@@ -149,7 +148,7 @@ private string function ReadNode (required xml Node) output="false" {
 				break;
 
 
-		case "w:t" :
+			case "w:t" :
 				result &= Element.xmlText;
 				break;
 
@@ -172,7 +171,7 @@ private string function ReadNode (required xml Node) output="false" {
 			}	
 	
 		// Inner text
-		result &= readNode(Element);
+	//	result &= readNode(Element);
 
 
 		}     // End for
@@ -182,12 +181,13 @@ private string function ReadNode (required xml Node) output="false" {
 
 
 
-string function extractDocx(required string pathToDocX) output="false"	{
+string function extractDocx(required string pathToDocX) {
 
 	cfzip(action="read", file=arguments.pathToDocx, entrypath="word\document.xml", variable="this.xmlString");
 	
 	this.xmlPara = xmlparse(this.xmlString).document.body;
-	
+
+
 	return ReadNode(this.xmlPara);
 	}
 
