@@ -6,3 +6,6 @@ Extract HTML from a Microsoft Word Document. This tool takes advantage of the fa
 
 See Word Extractor Demo
 
+
+https://github.com/jmohler1970/WordExtractor_demo
+https://github.com/jmohler1970/WordExtractor
